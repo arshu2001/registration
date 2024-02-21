@@ -112,7 +112,7 @@ class _RegisterState extends State<Register> {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
                     SizedBox(
@@ -144,7 +144,7 @@ class _RegisterState extends State<Register> {
                           onChanged: (value) {
                             gender = value.toString();
                           }),
-                    )
+                    ),
                   ],
                 ),
               ),
