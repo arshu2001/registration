@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:regform/next.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -14,6 +15,15 @@ class _RegisterState extends State<Register> {
   var email = TextEditingController();
   var num = TextEditingController();
   String? gender = "";
+  String? dropdownvalue = 'item1';
+
+  var items = [
+    "item1",
+    "item2",
+    "item3",
+    "item5"
+  ];
+  var res;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,6 +155,22 @@ class _RegisterState extends State<Register> {
                             gender = value.toString();
                           }),
                     ),
+                    DropdownButton(
+                      value: dropdownvalue,
+                      icon: Icon(Icons.arrow_drop_down),
+                      items: items.map((String items){
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                        );
+                    }).toList(),
+                    onChanged: (String? newValue){
+                      setState(() {
+                        dropdownvalue = newValue;
+                      });
+                    }
+                    ),
+
                   ],
                 ),
               ),
@@ -156,7 +182,8 @@ class _RegisterState extends State<Register> {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                        print(name.text);
+                        
+                        print(name.text)  ;
                         print(email.text);
                         print(num.text);
                         print(gender);
@@ -169,7 +196,16 @@ class _RegisterState extends State<Register> {
                         num.clear();
                         
                       },
-                      child: Text('cancel'))
+                      child: Text('cancel')),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context, MaterialPageRoute(
+                          builder: (context) => Next(),
+                          ));
+                    
+                  },
+                  child: Text('Next'))    
                 ],
               ),
             ),
