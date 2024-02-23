@@ -14,14 +14,17 @@ class _RegisterState extends State<Register> {
   var name = TextEditingController();
   var email = TextEditingController();
   var num = TextEditingController();
+
+  List l1=[];
+  
   String? gender = "";
-  String? dropdownvalue = 'item1';
+  String? dropdownvalue = 'Kozhikode';
 
   var items = [
-    "item1",
-    "item2",
-    "item3",
-    "item5"
+    "Kannur",
+    "Kozhikode",
+    "Kollam",
+    "Trissur",
   ];
   var res;
   @override
@@ -125,6 +128,7 @@ class _RegisterState extends State<Register> {
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
+                    Text('Gender',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                     SizedBox(
                       width: 140,
                       child: RadioListTile(
@@ -132,7 +136,9 @@ class _RegisterState extends State<Register> {
                           value: 'male',
                           groupValue: gender,
                           onChanged: (value) {
-                            gender = value.toString();
+                           setState(() {
+                              gender = value.toString();
+                           });
                           }),
                     ),
                     SizedBox(
@@ -142,7 +148,9 @@ class _RegisterState extends State<Register> {
                           value: 'female',
                           groupValue: gender,
                           onChanged: (value) {
-                            gender = value.toString();
+                           setState(() {
+                              gender = value.toString();
+                           });
                           }),
                     ),
                     SizedBox(
@@ -152,23 +160,31 @@ class _RegisterState extends State<Register> {
                           value: 'other',
                           groupValue: gender,
                           onChanged: (value) {
-                            gender = value.toString();
+                            setState(() {
+                              gender = value.toString();
+                            });
                           }),
                     ),
-                    DropdownButton(
-                      value: dropdownvalue,
-                      icon: Icon(Icons.arrow_drop_down),
-                      items: items.map((String items){
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                        );
-                    }).toList(),
-                    onChanged: (String? newValue){
-                      setState(() {
-                        dropdownvalue = newValue;
-                      });
-                    }
+                    Row(
+                      children: [
+                        Text('District:',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                        DropdownButton(
+                          
+                          value: dropdownvalue,
+                          icon: Icon(Icons.arrow_drop_down),
+                          items: items.map((String items){
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(items),
+                            );
+                        }).toList(),
+                        onChanged: (String? newValue){
+                          setState(() {
+                            dropdownvalue = newValue;
+                          });
+                        }
+                        ),
+                      ],
                     ),
 
                   ],
@@ -182,11 +198,15 @@ class _RegisterState extends State<Register> {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                        
-                        print(name.text)  ;
+                        print(name.text);
                         print(email.text);
                         print(num.text);
                         print(gender);
+                        print(dropdownvalue);
+
+                        l1.add({'name':name.text,'email':email.text,'mobile':num.text,'gender':gender,'district':dropdownvalue});
+                        print(l1);
+
                       },
                       child: Text('Submit')),
                   ElevatedButton(
@@ -201,8 +221,8 @@ class _RegisterState extends State<Register> {
                     onPressed: () {
                       Navigator.push(
                         context, MaterialPageRoute(
-                          builder: (context) => Next(),
-                          ));
+                        builder: (context) => Next(users:l1),
+                        ));
                     
                   },
                   child: Text('Next'))    
