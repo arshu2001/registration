@@ -207,6 +207,11 @@ class _RegisterState extends State<Register> {
                         l1.add({'name':name.text,'email':email.text,'mobile':num.text,'gender':gender,'district':dropdownvalue});
                         print(l1);
 
+                        Navigator.push(
+                        context, MaterialPageRoute(
+                        builder: (context) => Next(users:l1),
+                        ));
+
                       },
                       child: Text('Submit')),
                   ElevatedButton(
@@ -214,15 +219,16 @@ class _RegisterState extends State<Register> {
                         name.clear();
                         email.clear();
                         num.clear();
+                        setState(() {
+                          gender = null;
+                          dropdownvalue = null;
+                        });
                         
                       },
                       child: Text('cancel')),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context, MaterialPageRoute(
-                        builder: (context) => Next(users:l1),
-                        ));
+                      
                     
                   },
                   child: Text('Next'))    
